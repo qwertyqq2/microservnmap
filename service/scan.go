@@ -4,26 +4,24 @@ import (
 	"context"
 
 	"github.com/Ullaakut/nmap/v3"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
-func scan(ctx context.Context, targs []string, ports []string) (*nmap.Run, error) {
-	log.Info("Start scan...")
-
+func scan(ctx context.Context, logger *logrus.Logger, targs []string, ports []string) (*nmap.Run, error) {
 	scanner, err := createVulnScanner(ctx, targs, ports)
 	if err != nil {
+		logger.Error(err)
 		return nil, err
 	}
 
 	res, warn, err := scanner.Run()
 	if err != nil {
+		logger.Error("err scan")
 		for _, w := range *warn {
-			log.Warn(w)
+			logger.Warn(w)
 		}
 		return nil, err
 	}
-
-	log.Info("Receive from nmap")
 
 	return res, nil
 

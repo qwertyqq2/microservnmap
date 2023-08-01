@@ -5,4 +5,4 @@ linter:
 	go golangci-lint run
 
 test:
-	go test
+	go test ./service/parser ./service 
