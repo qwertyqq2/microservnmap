@@ -303,147 +303,6 @@ func (x *Vulnerability) GetCvssScore() float32 {
 	return 0
 }
 
-type EchoReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Req *Echo `protobuf:"bytes,1,opt,name=req,proto3" json:"req,omitempty"`
-}
-
-func (x *EchoReq) Reset() {
-	*x = EchoReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_serv_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *EchoReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*EchoReq) ProtoMessage() {}
-
-func (x *EchoReq) ProtoReflect() protoreflect.Message {
-	mi := &file_serv_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use EchoReq.ProtoReflect.Descriptor instead.
-func (*EchoReq) Descriptor() ([]byte, []int) {
-	return file_serv_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *EchoReq) GetReq() *Echo {
-	if x != nil {
-		return x.Req
-	}
-	return nil
-}
-
-type EchoResp struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Resp *Echo `protobuf:"bytes,2,opt,name=resp,proto3" json:"resp,omitempty"`
-}
-
-func (x *EchoResp) Reset() {
-	*x = EchoResp{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_serv_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *EchoResp) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*EchoResp) ProtoMessage() {}
-
-func (x *EchoResp) ProtoReflect() protoreflect.Message {
-	mi := &file_serv_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use EchoResp.ProtoReflect.Descriptor instead.
-func (*EchoResp) Descriptor() ([]byte, []int) {
-	return file_serv_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *EchoResp) GetResp() *Echo {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-type Echo struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Text string `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-}
-
-func (x *Echo) Reset() {
-	*x = Echo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_serv_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Echo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Echo) ProtoMessage() {}
-
-func (x *Echo) ProtoReflect() protoreflect.Message {
-	mi := &file_serv_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Echo.ProtoReflect.Descriptor instead.
-func (*Echo) Descriptor() ([]byte, []int) {
-	return file_serv_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *Echo) GetText() string {
-	if x != nil {
-		return x.Text
-	}
-	return ""
-}
-
 var File_serv_proto protoreflect.FileDescriptor
 
 var file_serv_proto_rawDesc = []byte{
@@ -476,25 +335,14 @@ var file_serv_proto_rawDesc = []byte{
 	0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a,
 	0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x76,
 	0x73, 0x73, 0x5f, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x02, 0x52, 0x09,
-	0x63, 0x76, 0x73, 0x73, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x22, 0x2d, 0x0a, 0x07, 0x45, 0x63, 0x68,
-	0x6f, 0x52, 0x65, 0x71, 0x12, 0x22, 0x0a, 0x03, 0x72, 0x65, 0x71, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x10, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75, 0x6c, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45,
-	0x63, 0x68, 0x6f, 0x52, 0x03, 0x72, 0x65, 0x71, 0x22, 0x30, 0x0a, 0x08, 0x45, 0x63, 0x68, 0x6f,
-	0x52, 0x65, 0x73, 0x70, 0x12, 0x24, 0x0a, 0x04, 0x72, 0x65, 0x73, 0x70, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x10, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75, 0x6c, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x45, 0x63, 0x68, 0x6f, 0x52, 0x04, 0x72, 0x65, 0x73, 0x70, 0x22, 0x1a, 0x0a, 0x04, 0x45, 0x63,
-	0x68, 0x6f, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x32, 0x8d, 0x01, 0x0a, 0x0e, 0x4e, 0x65, 0x74, 0x56, 0x75,
-	0x6c, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x48, 0x0a, 0x09, 0x43, 0x68, 0x65,
-	0x63, 0x6b, 0x56, 0x75, 0x6c, 0x6e, 0x12, 0x1c, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75, 0x6c, 0x6e,
-	0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x56, 0x75, 0x6c, 0x6e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75, 0x6c, 0x6e, 0x2e, 0x76,
-	0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x56, 0x75, 0x6c, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x31, 0x0a, 0x04, 0x45, 0x63, 0x68, 0x6f, 0x12, 0x13, 0x2e, 0x6e, 0x65,
-	0x74, 0x76, 0x75, 0x6c, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x63, 0x68, 0x6f, 0x52, 0x65, 0x71,
-	0x1a, 0x14, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75, 0x6c, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x63,
-	0x68, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x63, 0x76, 0x73, 0x73, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x32, 0x5a, 0x0a, 0x0e, 0x4e, 0x65, 0x74,
+	0x56, 0x75, 0x6c, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x48, 0x0a, 0x09, 0x43,
+	0x68, 0x65, 0x63, 0x6b, 0x56, 0x75, 0x6c, 0x6e, 0x12, 0x1c, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75,
+	0x6c, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x56, 0x75, 0x6c, 0x6e, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x6e, 0x65, 0x74, 0x76, 0x75, 0x6c, 0x6e,
+	0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x56, 0x75, 0x6c, 0x6e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -509,32 +357,25 @@ func file_serv_proto_rawDescGZIP() []byte {
 	return file_serv_proto_rawDescData
 }
 
-var file_serv_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_serv_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_serv_proto_goTypes = []interface{}{
 	(*CheckVulnRequest)(nil),  // 0: netvuln.v1.CheckVulnRequest
 	(*CheckVulnResponse)(nil), // 1: netvuln.v1.CheckVulnResponse
 	(*TargetResult)(nil),      // 2: netvuln.v1.TargetResult
 	(*Service)(nil),           // 3: netvuln.v1.Service
 	(*Vulnerability)(nil),     // 4: netvuln.v1.Vulnerability
-	(*EchoReq)(nil),           // 5: netvuln.v1.EchoReq
-	(*EchoResp)(nil),          // 6: netvuln.v1.EchoResp
-	(*Echo)(nil),              // 7: netvuln.v1.Echo
 }
 var file_serv_proto_depIdxs = []int32{
 	2, // 0: netvuln.v1.CheckVulnResponse.results:type_name -> netvuln.v1.TargetResult
 	3, // 1: netvuln.v1.TargetResult.service:type_name -> netvuln.v1.Service
 	4, // 2: netvuln.v1.Service.vulns:type_name -> netvuln.v1.Vulnerability
-	7, // 3: netvuln.v1.EchoReq.req:type_name -> netvuln.v1.Echo
-	7, // 4: netvuln.v1.EchoResp.resp:type_name -> netvuln.v1.Echo
-	0, // 5: netvuln.v1.NetVulnService.CheckVuln:input_type -> netvuln.v1.CheckVulnRequest
-	5, // 6: netvuln.v1.NetVulnService.Echo:input_type -> netvuln.v1.EchoReq
-	1, // 7: netvuln.v1.NetVulnService.CheckVuln:output_type -> netvuln.v1.CheckVulnResponse
-	6, // 8: netvuln.v1.NetVulnService.Echo:output_type -> netvuln.v1.EchoResp
-	7, // [7:9] is the sub-list for method output_type
-	5, // [5:7] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	0, // 3: netvuln.v1.NetVulnService.CheckVuln:input_type -> netvuln.v1.CheckVulnRequest
+	1, // 4: netvuln.v1.NetVulnService.CheckVuln:output_type -> netvuln.v1.CheckVulnResponse
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_serv_proto_init() }
@@ -603,42 +444,6 @@ func file_serv_proto_init() {
 				return nil
 			}
 		}
-		file_serv_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EchoReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_serv_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EchoResp); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_serv_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Echo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -646,7 +451,7 @@ func file_serv_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_serv_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

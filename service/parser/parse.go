@@ -1,4 +1,4 @@
-package xmlparse
+package parser
 
 import (
 	"github.com/Ullaakut/nmap/v3"
@@ -22,7 +22,6 @@ func FindVulnsFromPort(port nmap.Port) []*proto.Vulnerability {
 	)
 
 	for len(stack) > 0 {
-		// Pop the top element from the stack
 		obj := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 
@@ -30,6 +29,12 @@ func FindVulnsFromPort(port nmap.Port) []*proto.Vulnerability {
 		case nmap.Script:
 			stack = append(stack, toInterfaceSlice(v.Tables)...)
 		case nmap.Table:
+			if tempCCVS == "" {
+				tempCCVS = ""
+			}
+			if tempCCVS == "" {
+				tempCCVS = ""
+			}
 			for _, el := range v.Elements {
 				if el.Key == "id" {
 					tempID = el.Value
@@ -44,8 +49,6 @@ func FindVulnsFromPort(port nmap.Port) []*proto.Vulnerability {
 					CvssScore:  utils.StringToFloat(tempCCVS),
 				})
 			}
-			tempID = ""
-			tempCCVS = ""
 			stack = append(stack, toInterfaceSlice(v.Tables)...)
 		}
 	}

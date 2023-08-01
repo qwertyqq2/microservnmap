@@ -23,7 +23,6 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NetVulnServiceClient interface {
 	CheckVuln(ctx context.Context, in *CheckVulnRequest, opts ...grpc.CallOption) (*CheckVulnResponse, error)
-	Echo(ctx context.Context, in *EchoReq, opts ...grpc.CallOption) (*EchoResp, error)
 }
 
 type netVulnServiceClient struct {
@@ -43,21 +42,11 @@ func (c *netVulnServiceClient) CheckVuln(ctx context.Context, in *CheckVulnReque
 	return out, nil
 }
 
-func (c *netVulnServiceClient) Echo(ctx context.Context, in *EchoReq, opts ...grpc.CallOption) (*EchoResp, error) {
-	out := new(EchoResp)
-	err := c.cc.Invoke(ctx, "/netvuln.v1.NetVulnService/Echo", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // NetVulnServiceServer is the server API for NetVulnService service.
 // All implementations must embed UnimplementedNetVulnServiceServer
 // for forward compatibility
 type NetVulnServiceServer interface {
 	CheckVuln(context.Context, *CheckVulnRequest) (*CheckVulnResponse, error)
-	Echo(context.Context, *EchoReq) (*EchoResp, error)
 	mustEmbedUnimplementedNetVulnServiceServer()
 }
 
@@ -67,9 +56,6 @@ type UnimplementedNetVulnServiceServer struct {
 
 func (UnimplementedNetVulnServiceServer) CheckVuln(context.Context, *CheckVulnRequest) (*CheckVulnResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckVuln not implemented")
-}
-func (UnimplementedNetVulnServiceServer) Echo(context.Context, *EchoReq) (*EchoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Echo not implemented")
 }
 func (UnimplementedNetVulnServiceServer) mustEmbedUnimplementedNetVulnServiceServer() {}
 
@@ -102,24 +88,6 @@ func _NetVulnService_CheckVuln_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NetVulnService_Echo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EchoReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NetVulnServiceServer).Echo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/netvuln.v1.NetVulnService/Echo",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NetVulnServiceServer).Echo(ctx, req.(*EchoReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // NetVulnService_ServiceDesc is the grpc.ServiceDesc for NetVulnService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -130,10 +98,6 @@ var NetVulnService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckVuln",
 			Handler:    _NetVulnService_CheckVuln_Handler,
-		},
-		{
-			MethodName: "Echo",
-			Handler:    _NetVulnService_Echo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
