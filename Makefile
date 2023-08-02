@@ -1,8 +1,8 @@
 build:
 	go build cmd/main.go
 
-linter:
-	go golangci-lint run
+lint:
+	golint ./...
 
 test:
 	go test ./service/parser ./service -timeout 100s

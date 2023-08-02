@@ -27,9 +27,27 @@
 
 
 
-##### Запуск линтера(убедитесь, что установлен golangci-lint):
+##### Запуск линтера:
+Проверьте установлен ли линтер golint
+
+Проверьте наличие BIN_DIR в PATH или настройте его:
+
+     export GOPATH=$HOME/go
+     export PATH=$PATH:$GOPATH/bin
+     export PATH=$PATH:$GOROOT/bin
+
+
+Запуск линтера:
 
      make linter
+
+#### Отправка запросов
+Тестирование запросов можно выполнить при помощи программы Evans
+
+     evans proto/serv.proto -p 8000
+     call CheckVuln
+
+
 
 
 
