@@ -20,15 +20,7 @@ func defualtAddressServer() string {
 	return ":8000"
 }
 
-func defualtAddressClient() string {
-	return ":8800"
-}
-
-func defualtTargerts() []string {
-	return []string{"localhost", "scanme.nmap.org"}
-}
-
-func startServer(t *testing.T, ctx context.Context) error {
+func startServer(ctx context.Context, t *testing.T) error {
 	serv := NewGRPCService(logrus.New())
 	ln, err := net.Listen("tcp", defualtAddressServer())
 	if err != nil {
@@ -39,7 +31,7 @@ func startServer(t *testing.T, ctx context.Context) error {
 	go func() {
 		err := server.Serve(ln)
 		if err != nil {
-			t.Fatal(err)
+			return
 		}
 	}()
 	go func() {
@@ -71,7 +63,9 @@ func TestEmptyFields(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	defer cancel()
 
-	startServer(t, ctx)
+	if err := startServer(ctx, t); err != nil {
+		t.Fatal(err)
+	}
 
 	cli := clientConnect(t)
 
