@@ -30,6 +30,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	server := grpc.NewServer()
 	proto.RegisterNetVulnServiceServer(server, serv)
 	go func() {

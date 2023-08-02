@@ -6,6 +6,8 @@ import (
 	"github.com/qwertyqq2/microservTask/utils"
 )
 
+// FindVulnsFromPort ищет id и cvss уязвимостей по заданному порту
+// Позволяет сократить вложенность кода
 func FindVulnsFromPort(port nmap.Port) []*proto.Vulnerability {
 	var vulns []*proto.Vulnerability
 	stack := []interface{}{port}

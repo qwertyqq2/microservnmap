@@ -7,31 +7,35 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// scan сканирует цели и порты заданные в targs и ports соответветственно
+// Параметры сканера задаются по умолчанию в функции createVulnScanner
 func scan(ctx context.Context, logger *logrus.Logger, targs []string, ports []string) (*nmap.Run, error) {
 	scanner, err := createVulnScanner(ctx, targs, ports)
 	if err != nil {
-		logger.Error(err)
-		return nil, err
+		logger.Error(ErrCreateScanner)
+		return nil, ErrCreateScanner
 	}
 
 	res, warn, err := scanner.Run()
 	if err != nil {
-		logger.Error("err scan")
+		logger.Error(ErrRunScanner)
 		for _, w := range *warn {
 			logger.Warn(w)
 		}
-		return nil, err
+		return nil, ErrRunScanner
 	}
 
 	return res, nil
 
 }
 
+// createVulnScanner создает новый nmap сканер
+// По умолчанию выбраны параметры TimingAggressive, фильтр
+// на протокол портов tcp, скрипт vulners
 func createVulnScanner(ctx context.Context, targs []string, ports []string) (*nmap.Scanner, error) {
 	return nmap.NewScanner(
 		ctx,
 		nmap.WithPorts(ports...),
-		nmap.WithACKDiscovery(ports...),
 		nmap.WithTargets(targs...),
 		nmap.WithTimingTemplate(nmap.TimingAggressive),
 		nmap.WithFilterPort(func(p nmap.Port) bool {

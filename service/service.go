@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"errors"
 
 	"github.com/Ullaakut/nmap/v3"
 	"github.com/qwertyqq2/microservTask/proto"
@@ -11,11 +10,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+/*
+Пакет service представляет собой обертку
+над утилитой nmap. В качестве основы была взята
+реализация nmap на языке go: github.com/Ullaakut/nmap
+*/
+
 const (
 	defualtMaxPort = 1000
 )
 
-// обернуть над Service nmap
+// grpc сервис обертка над nmap
 type GRPCService struct {
 	logger *logrus.Logger
 	proto.UnimplementedNetVulnServiceServer
@@ -25,12 +30,17 @@ func NewGRPCService(logger *logrus.Logger) *GRPCService {
 	return &GRPCService{logger: logger}
 }
 
+// CheckVuln сканирует порты и цели указанные в req
+// Если цели не заданы, то возвращается ошибка
+// Если порты не заданы, то будут сканироваться все порты
+// в диапозоне 1-1000
+// Учтите, что сканирование всех портов на удаленном хосте
+// может занять некоторое время
 func (s *GRPCService) CheckVuln(ctx context.Context, req *proto.CheckVulnRequest) (*proto.CheckVulnResponse, error) {
 	s.logger.Info("New request receive")
 	if len(req.Targets) == 0 {
-		err := errors.New("undef targs")
-		s.logger.Error(err)
-		return nil, err
+		s.logger.Error(ErrUndefinedTargers)
+		return nil, ErrUndefinedTargers
 	}
 	var ports []string
 	if len(req.TcpPorts) == 0 {
@@ -45,6 +55,8 @@ func (s *GRPCService) CheckVuln(ctx context.Context, req *proto.CheckVulnRequest
 			ports = append(ports, utils.IntToString(port))
 		}
 	}
+
+	// начало сканирования
 	res, err := scan(ctx, s.logger, req.Targets, ports)
 	if err != nil {
 		return nil, err
@@ -53,6 +65,7 @@ func (s *GRPCService) CheckVuln(ctx context.Context, req *proto.CheckVulnRequest
 	return s.toProto(res), nil
 }
 
+// toProto преобразует результат сканирования в прото файл
 func (s *GRPCService) toProto(res *nmap.Run) *proto.CheckVulnResponse {
 	resp := &proto.CheckVulnResponse{}
 	resp.Results = make([]*proto.TargetResult, 0)
