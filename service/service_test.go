@@ -51,7 +51,7 @@ func clientConnect(t *testing.T) proto.NetVulnServiceClient {
 	return proto.NewNetVulnServiceClient(cliConn)
 }
 
-func TestEmptyFields(t *testing.T) {
+func TestProcess(t *testing.T) {
 	testValidationEmptyFieldsCases := []struct {
 		name string
 		req  *proto.CheckVulnRequest
