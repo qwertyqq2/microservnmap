@@ -38,10 +38,12 @@ func NewGRPCService(logger *logrus.Logger) *GRPCService {
 // может занять некоторое время
 func (s *GRPCService) CheckVuln(ctx context.Context, req *proto.CheckVulnRequest) (*proto.CheckVulnResponse, error) {
 	s.logger.Info("New request receive")
+	
 	if len(req.Targets) == 0 {
 		s.logger.Error(ErrUndefinedTargers)
 		return nil, ErrUndefinedTargers
 	}
+
 	var ports []string
 	if len(req.TcpPorts) == 0 {
 		ports = make([]string, 0, defualtMaxPort)
@@ -61,7 +63,9 @@ func (s *GRPCService) CheckVuln(ctx context.Context, req *proto.CheckVulnRequest
 	if err != nil {
 		return nil, err
 	}
+
 	s.logger.Info("Send response")
+
 	return s.toProto(res), nil
 }
 

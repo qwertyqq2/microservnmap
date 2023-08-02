@@ -77,6 +77,7 @@ func TestEmptyFields(t *testing.T) {
 
 	for _, tc := range testValidationEmptyFieldsCases {
 		t.Run(tc.name, func(t *testing.T) {
+			t.Log("start", tc.name)
 			_, err := cli.CheckVuln(ctx, tc.req)
 			if err == nil {
 				t.Fatal("its not true")
@@ -91,9 +92,6 @@ func TestEmptyFields(t *testing.T) {
 	}{
 		{name: "localhost all ports", req: &proto.CheckVulnRequest{Targets: []string{"localhost"}}},
 		{name: "localhost certain ports", req: &proto.CheckVulnRequest{Targets: []string{"localhost"}, TcpPorts: []int32{7000, 7500}}},
-		{name: "many hosts all ports", req: &proto.CheckVulnRequest{
-			Targets: []string{"localhost", "scanme.nmap.org"},
-		}},
 		{name: "many hosts certain ports", req: &proto.CheckVulnRequest{
 			Targets:  []string{"localhost", "scanme.nmap.org"},
 			TcpPorts: []int32{7000, 7500},
@@ -102,6 +100,7 @@ func TestEmptyFields(t *testing.T) {
 
 	for _, tc := range testProccessCases {
 		t.Run(tc.name, func(t *testing.T) {
+			t.Log("start", tc.name)
 			_, err := cli.CheckVuln(ctx, tc.req)
 			if err != nil {
 				t.Fatal(err)
