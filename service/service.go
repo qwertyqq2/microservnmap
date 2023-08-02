@@ -20,12 +20,15 @@ const (
 	defualtMaxPort = 1000
 )
 
-// grpc сервис обертка над nmap
+// GRPCService - сервис обертка над nmap
+// По запросу сканирует уязвимости хостов
 type GRPCService struct {
 	logger *logrus.Logger
 	proto.UnimplementedNetVulnServiceServer
 }
 
+// NewGRPCService возращает GRPCService с заданным логгером
+// Для удобства
 func NewGRPCService(logger *logrus.Logger) *GRPCService {
 	return &GRPCService{logger: logger}
 }
@@ -38,7 +41,7 @@ func NewGRPCService(logger *logrus.Logger) *GRPCService {
 // может занять некоторое время
 func (s *GRPCService) CheckVuln(ctx context.Context, req *proto.CheckVulnRequest) (*proto.CheckVulnResponse, error) {
 	s.logger.Info("New request receive")
-	
+
 	if len(req.Targets) == 0 {
 		s.logger.Error(ErrUndefinedTargers)
 		return nil, ErrUndefinedTargers
